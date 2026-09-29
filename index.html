@@ -49,7 +49,7 @@ window.manggaImgFallback = function (img) {
   --color-accent-light: #FFD66B;
   --color-bg: #FCFBF7;
   --color-surface: #F8F5EA;
-  --color-surface-2: #F3EFE4;
+  --color-surface-2: #E7E2D7;
   --color-text: #1E2A24;
   --color-muted: #69736D;
   --color-border: #E7E2D7;
@@ -66,6 +66,7 @@ window.manggaImgFallback = function (img) {
   --space-xl: 48px;
   --space-2xl: 64px;
   --space-3xl: 96px;
+  --space-4xl: 120px;
 
   /* Radius */
   --radius-sm: 8px;
@@ -122,7 +123,7 @@ img { transition: opacity var(--transition-medium); }
 
 img.is-loading { opacity: 0; }
 
-button, input, textarea { font: inherit; color: inherit; }
+button, input, textarea, select { font: inherit; color: inherit; }
 
 button { background: none; border: 0; cursor: pointer; }
 
@@ -164,7 +165,7 @@ p { text-wrap: pretty; }
   padding-inline: var(--gutter);
 }
 
-.section { padding-block: var(--space-3xl); }
+.section { padding-block: clamp(72px, 7.5vw, var(--space-4xl)); }
 
 .section--ruled { border-top: 1px solid var(--color-border); }
 
@@ -174,9 +175,9 @@ p { text-wrap: pretty; }
 
 .eyebrow {
   display: inline-block;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-primary);
 }
@@ -188,7 +189,9 @@ p { text-wrap: pretty; }
 }
 
 .head h2 {
-  font-size: clamp(1.65rem, 1.1rem + 2vw, 2.5rem);
+  font-size: clamp(1.85rem, 1.25rem + 2.3vw, 2.9rem);
+  line-height: 1.06;
+  letter-spacing: -0.032em;
 }
 
 .head p {
@@ -546,7 +549,7 @@ p { text-wrap: pretty; }
 
 @keyframes badge-bump {
   0% { transform: scale(1); }
-  45% { transform: scale(1.18); }
+  45% { transform: scale(1.08); }
   100% { transform: scale(1); }
 }
 
@@ -609,17 +612,17 @@ p { text-wrap: pretty; }
 /* ==========================================================================
    6. HERO — komposisi editorial
    ========================================================================== */
-.hero { padding-block: var(--space-2xl) var(--space-2xl); }
+.hero { padding-block: clamp(40px, 5vw, 80px) clamp(56px, 6.5vw, 104px); }
 
 .hero-grid { display: grid; gap: var(--space-xl); }
 
-.hero-copy { display: grid; gap: var(--space-md); align-content: start; }
+.hero-copy { display: grid; gap: var(--space-md); align-content: center; }
 
 .hero h1 {
-  font-size: clamp(2.15rem, 1.35rem + 3vw, 3.5rem);
+  font-size: clamp(2.35rem, 1.3rem + 4vw, 4.25rem);
   font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.035em;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
 }
 
 .hero h1 span { display: block; color: var(--color-primary); }
@@ -633,54 +636,28 @@ p { text-wrap: pretty; }
 
 .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm) var(--space-md); }
 
-.hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 18px;
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--color-border);
-}
-
-.hero-meta li {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-muted);
-}
-
-.hero-meta li + li::before {
-  content: "";
-  width: 1px;
-  height: 12px;
-  margin-right: var(--space-xs);
-  background: var(--color-border-strong);
-}
-
-.hero-meta .dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-accent);
-}
-
 /* Sisi visual */
 .hero-visual { position: relative; }
 
 .hero-media {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  background: var(--color-surface);
+  background: var(--color-surface-2);
 }
 
-.hero-media img { width: 100%; height: 100%; object-fit: cover; }
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-media:hover img { transform: scale(1.02); }
+}
 
 .hero-tag {
   position: absolute;
@@ -691,7 +668,7 @@ p { text-wrap: pretty; }
   align-items: center;
   gap: var(--space-xs);
   padding: 8px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   background: rgba(252, 251, 247, 0.94);
   font-size: 0.6875rem;
   font-weight: 700;
@@ -701,22 +678,6 @@ p { text-wrap: pretty; }
 }
 
 .hero-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent); }
-
-.hero-detail {
-  display: none;
-  position: absolute;
-  left: 0;
-  bottom: -20px;
-  width: 116px;
-  height: 116px;
-  overflow: hidden;
-  border: 4px solid var(--color-bg);
-  border-radius: 50%;
-  background: var(--color-surface);
-  box-shadow: var(--shadow-md);
-}
-
-.hero-detail img { width: 100%; height: 100%; object-fit: cover; }
 
 .hero-note {
   margin-top: var(--space-sm);
@@ -741,18 +702,12 @@ p { text-wrap: pretty; }
   flex-direction: column;
   overflow: hidden;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   background: var(--color-bg);
-  box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-medium), box-shadow var(--transition-medium),
-    border-color var(--transition-medium);
+  transition: border-color var(--transition-medium);
 }
 
-.product-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-border-strong);
-  box-shadow: var(--shadow-md);
-}
+.product-card:hover { border-color: var(--color-border-strong); }
 
 .product-media {
   position: relative;
@@ -763,14 +718,14 @@ p { text-wrap: pretty; }
 
 .product-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms ease-out; }
 
-.product-card:hover .product-media img { transform: scale(1.03); }
+.product-card:hover .product-media img { transform: scale(1.02); }
 
 .badge {
   position: absolute;
   top: var(--space-sm);
   left: var(--space-sm);
   padding: 6px 10px;
-  border-radius: 999px;
+  border-radius: 6px;
   background: rgba(252, 251, 247, 0.94);
   border: 1px solid var(--color-border);
   font-size: 0.6875rem;
@@ -788,14 +743,6 @@ p { text-wrap: pretty; }
   flex: 1;
   gap: 10px;
   padding: var(--space-md);
-}
-
-.product-cat {
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-muted);
 }
 
 .product-name { font-size: 1.1875rem; letter-spacing: -0.025em; }
@@ -884,47 +831,6 @@ p { text-wrap: pretty; }
 .story-facts dd { font-size: 0.9375rem; }
 
 /* ==========================================================================
-   9. KEUNGGULAN — angka besar sebagai elemen visual
-   ========================================================================== */
-.benefits {
-  display: grid;
-  margin-top: var(--space-2xl);
-  border-top: 1px solid var(--color-border);
-}
-
-.benefit {
-  display: grid;
-  grid-template-columns: 76px minmax(0, 1fr);
-  gap: var(--space-sm);
-  padding: var(--space-lg) 0;
-  border-bottom: 1px solid var(--color-border);
-}
-
-.benefit-num {
-  font-size: clamp(2.25rem, 1.6rem + 2vw, 3.25rem);
-  font-weight: 800;
-  line-height: 0.9;
-  letter-spacing: -0.05em;
-  font-variant-numeric: tabular-nums;
-  color: rgba(36, 90, 67, 0.16);
-}
-
-.benefit h3 {
-  font-size: 1.0625rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-.benefit p {
-  margin-top: var(--space-xs);
-  max-width: 40ch;
-  font-size: 0.9375rem;
-  line-height: 1.65;
-  color: var(--color-muted);
-}
-
-/* ==========================================================================
    10. TIMELINE — dari kebun ke rumah
    ========================================================================== */
 .timeline { display: grid; gap: 0; margin-top: var(--space-2xl); }
@@ -979,48 +885,13 @@ p { text-wrap: pretty; }
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-sm) var(--space-md);
+  gap: var(--space-sm) var(--space-lg);
   margin-top: var(--space-xl);
-  padding: var(--space-md);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-bg);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
 }
 
 .story-note p { font-size: 0.9375rem; color: var(--color-muted); max-width: 52ch; }
-
-/* ==========================================================================
-   11. TESTIMONI
-   ========================================================================== */
-.quotes {
-  display: grid;
-  gap: var(--space-lg);
-  margin-top: var(--space-2xl);
-}
-
-.quote blockquote {
-  font-size: 1.0625rem;
-  line-height: 1.6;
-  letter-spacing: -0.01em;
-}
-
-.quote-foot { display: flex; align-items: center; gap: var(--space-xs); margin-top: var(--space-sm); }
-
-.avatar {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: var(--color-surface-2);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  flex: none;
-}
-
-.quote-foot strong { font-size: 0.875rem; font-weight: 600; }
-.quote-foot span { font-size: 0.8125rem; color: var(--color-muted); }
 
 /* ==========================================================================
    12. CTA
@@ -1036,7 +907,9 @@ p { text-wrap: pretty; }
 .cta h2 {
   margin-top: var(--space-sm);
   color: var(--color-on-primary);
-  font-size: clamp(1.75rem, 1.2rem + 2.2vw, 2.75rem);
+  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3rem);
+  line-height: 1.06;
+  letter-spacing: -0.032em;
   max-width: 22ch;
   margin-inline: auto;
 }
@@ -1086,7 +959,7 @@ p { text-wrap: pretty; }
 
 .footer-col ul { display: grid; gap: 10px; margin-top: var(--space-sm); }
 
-.footer-col a { transition: color var(--transition-fast); }
+.footer-col a { display: inline-flex; align-items: center; min-height: 24px; transition: color var(--transition-fast); }
 .footer-col a:hover { color: var(--color-accent-light); }
 
 .footer-bottom {
@@ -1390,7 +1263,7 @@ body.is-loading { overflow: hidden; }
   display: grid;
   place-items: center;
   background: var(--color-bg);
-  transition: opacity 420ms ease-out, visibility 420ms ease-out;
+  transition: opacity 320ms ease-out, visibility 320ms ease-out;
 }
 
 .loader.is-done { opacity: 0; visibility: hidden; }
@@ -1405,7 +1278,7 @@ body.is-loading { overflow: hidden; }
 .loader-logo {
   width: 100%;
   height: auto;
-  animation: loader-in 800ms ease-out both;
+  animation: loader-in 460ms ease-out both;
 }
 
 .loader-track {
@@ -1424,7 +1297,7 @@ body.is-loading { overflow: hidden; }
   background: var(--color-accent);
   transform: scaleX(0);
   transform-origin: left;
-  animation: loader-fill 2800ms cubic-bezier(0.4, 0.05, 0.25, 1) forwards;
+  animation: loader-fill 700ms cubic-bezier(0.4, 0.05, 0.25, 1) forwards;
 }
 
 .loader-meta {
@@ -1459,7 +1332,534 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
 }
 
 /* ==========================================================================
-   18. RESPONSIVE — TABLET
+   18. TICKER — satu baris, gerak pelan, pemisah editorial antar section
+   Tanpa JavaScript: dua grup identik, digeser -50% supaya mulus (seamless).
+   ========================================================================== */
+.ticker {
+  background: var(--color-surface);
+  border-block: 1px solid var(--color-border);
+  padding-block: 14px;
+  overflow: hidden;
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-slide 64s linear infinite;
+}
+
+.ticker-group {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+.ticker-group span {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 32px);
+  padding-right: clamp(16px, 2.4vw, 32px);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+.ticker-group span::after {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+@keyframes ticker-slide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   19. FOTOGRAFI — perlakuan seragam + penanda foto stok sementara
+   ========================================================================== */
+.img-stock { filter: saturate(0.92); }
+
+.hero-visual .photo-note { margin-top: var(--space-sm); }
+
+.photo-note {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  max-width: 52ch;
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  color: var(--color-muted);
+}
+
+.photo-note::before {
+  content: "";
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color-border-strong);
+}
+
+/* Pembuka galeri: satu gambar besar */
+.gallery-featured {
+  position: relative;
+  margin-top: var(--space-xl);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+}
+
+.gallery-featured img {
+  width: 100%;
+  height: clamp(260px, 44vw, 600px);
+  object-fit: cover;
+  transition: transform 700ms cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gallery-featured:hover img { transform: scale(1.02); }
+}
+
+.gallery-featured figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 26px var(--space-md) 14px;
+  background: linear-gradient(to top, rgba(24, 59, 45, 0.7), rgba(24, 59, 45, 0));
+  color: var(--color-on-primary);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   21. PAGES & ROUTER — setiap route punya halamannya sendiri
+   ========================================================================== */
+.page[hidden] { display: none !important; }
+
+.page-head {
+  display: grid;
+  gap: var(--space-sm);
+  padding-block: var(--space-xl) var(--space-lg);
+}
+
+.page-head h1 {
+  margin: 0;
+  font-size: clamp(2.125rem, 5.4vw, 3.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.page-head .lede { max-width: 58ch; }
+
+.page-head-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-md);
+  font-size: 0.8125rem;
+  color: var(--color-muted);
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--color-muted);
+}
+
+.breadcrumb li { display: flex; align-items: center; gap: 8px; }
+.breadcrumb a { display: inline-flex; align-items: center; min-height: 24px; color: var(--color-muted); }
+.breadcrumb a:hover { color: var(--color-primary); }
+.breadcrumb .sep { opacity: 0.45; }
+.breadcrumb [aria-current="page"] { color: var(--color-text); font-weight: 600; }
+
+.page-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); }
+
+/* Tombol Belanja di navbar: hanya bila memang ada ruang */
+.nav-cta { display: none; }
+
+/* Penutup halaman non-home */
+.page-cta {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-md);
+  padding: clamp(32px, 5vw, 56px) var(--space-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.page-cta h2 { margin: 0; font-size: clamp(1.5rem, 3.4vw, 2.25rem); letter-spacing: -0.03em; }
+.page-cta p { margin: 0; max-width: 48ch; color: var(--color-muted); }
+
+/* ==========================================================================
+   22. SHOP — toolbar, filter, grid katalog
+   ========================================================================== */
+.shop-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding-block: var(--space-md);
+  border-block: 1px solid var(--color-border);
+  margin-bottom: var(--space-xl);
+}
+
+.filter-group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+
+.filter-label {
+  margin-right: 2px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-bg);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
+}
+
+.chip:hover { border-color: var(--color-border-strong); }
+.chip[aria-pressed="true"] { background: var(--color-primary); border-color: var(--color-primary); color: var(--color-on-primary); }
+.chip-count { font-size: 0.6875rem; font-weight: 700; opacity: 0.6; }
+
+.select-wrap { position: relative; display: inline-flex; align-items: center; }
+
+.select-wrap select {
+  appearance: none;
+  -webkit-appearance: none;
+  min-height: 44px;
+  padding: 0 40px 0 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-bg);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 17px;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--color-muted);
+  border-bottom: 1.5px solid var(--color-muted);
+  transform: translateY(-2px) rotate(45deg);
+  pointer-events: none;
+}
+
+.shop-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-lg) var(--space-md); }
+
+.shop-count { font-size: 0.8125rem; color: var(--color-muted); }
+
+.empty-state {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-2xl) var(--space-lg);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.empty-state p { margin: 0; max-width: 40ch; color: var(--color-muted); }
+
+/* Tombol pada gambar produk → membuka detail */
+.product-media-btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  cursor: zoom-in;
+}
+
+.product-media-btn img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.product-detail-link { align-self: flex-start; }
+
+/* ==========================================================================
+   23. GALLERY — masonry editorial
+   ========================================================================== */
+.gallery-grid {
+  columns: 2;
+  column-gap: var(--space-sm);
+}
+
+/* Bukan kartu: gambar duduk langsung di grid, caption kecil di bawahnya */
+.gallery-item {
+  display: block;
+  width: 100%;
+  margin: 0 0 var(--space-lg);
+  padding: 0;
+  break-inside: avoid;
+  position: relative;
+}
+
+.gallery-item[hidden] { display: none; }
+
+.gallery-item-btn {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  cursor: zoom-in;
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: var(--g-ratio, 4 / 3);
+  object-fit: cover;
+  transition: transform 700ms ease-out;
+}
+
+.gallery-item:hover img,
+.gallery-item-btn:focus-visible img { transform: scale(1.03); }
+
+.gallery-item figcaption {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  padding: 10px 2px 0;
+  color: var(--color-text);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.gallery-item .gallery-cat {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.gallery-item figcaption strong { font-weight: 500; font-size: 0.8125rem; }
+
+.gallery-grid--preview { columns: 2; }
+
+@media (min-width: 768px) {
+  .gallery-grid--preview { columns: 3; }
+}
+
+.section-actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-lg); }
+
+/* ==========================================================================
+   24. LIGHTBOX
+   ========================================================================== */
+body.is-locked { overflow: hidden; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: rgba(19, 45, 34, 0.96);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 220ms ease-out, visibility 220ms;
+}
+
+.lightbox.is-open { opacity: 1; visibility: visible; }
+
+.lightbox-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-sm); color: rgba(255, 255, 255, 0.72); }
+
+.lightbox-cat {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+}
+
+.lightbox-body { display: grid; place-items: center; min-height: 0; }
+
+.lightbox-body img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 60px rgba(24, 59, 45, 0.28);
+}
+
+.lightbox-body img.is-in { animation: lightbox-in 260ms ease-out both; }
+
+@keyframes lightbox-in {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+.lightbox-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-sm); }
+
+.lightbox-caption { color: var(--color-on-primary); font-size: 0.875rem; }
+
+.lightbox-nav { display: flex; align-items: center; gap: 8px; }
+
+.lightbox-count { font-size: 0.75rem; color: rgba(255, 255, 255, 0.6); min-width: 52px; text-align: center; }
+
+.icon-btn--on-dark { border-color: rgba(255, 255, 255, 0.3); color: var(--color-on-primary); }
+
+.icon-btn--on-dark:hover { border-color: var(--color-on-primary); }
+
+/* ==========================================================================
+   25. PRODUCT DETAIL MODAL
+   ========================================================================== */
+.pd-grid { display: grid; gap: var(--space-lg); }
+
+.pd-media {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-2);
+}
+
+.pd-media img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+
+.pd-body { display: grid; gap: var(--space-sm); align-content: start; }
+
+.pd-body h3 { margin: 0; font-size: clamp(1.375rem, 3vw, 1.75rem); letter-spacing: -0.02em; }
+
+.pd-desc { margin: 0; color: var(--color-muted); line-height: 1.7; }
+
+.pd-facts { display: grid; gap: 8px; margin: 0; padding: var(--space-md) 0 0; list-style: none; border-top: 1px solid var(--color-border); }
+
+.pd-facts li { display: flex; justify-content: space-between; gap: var(--space-md); font-size: 0.875rem; }
+
+.pd-facts span:first-child { color: var(--color-muted); }
+
+.pd-facts span:last-child { font-weight: 600; text-align: right; }
+
+.pd-buy { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); padding-top: var(--space-xs); }
+
+/* ==========================================================================
+   26. ABOUT & HOW TO ORDER
+   ========================================================================== */
+.split { display: grid; gap: var(--space-xl); align-items: center; }
+
+.split-media {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.split-media img { display: block; width: 100%; aspect-ratio: 5 / 4; object-fit: cover; }
+
+.split-body { display: grid; gap: var(--space-sm); }
+.split-body h2 { margin: 0; font-size: clamp(1.6rem, 3.6vw, 2.4rem); letter-spacing: -0.03em; line-height: 1.12; }
+.split-body p { margin: 0; color: var(--color-muted); line-height: 1.75; }
+
+.value-list { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border); }
+
+.value-list li {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.value-list .value-num {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  padding-top: 4px;
+}
+
+.value-list h3 { margin: 0 0 6px; font-size: 1.0625rem; letter-spacing: -0.01em; }
+.value-list p { margin: 0; color: var(--color-muted); line-height: 1.7; max-width: 62ch; }
+
+.order-steps { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; counter-reset: order-step; border-top: 1px solid var(--color-border); }
+
+.order-steps li {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: var(--space-md);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.order-step-num {
+  font-size: clamp(1.5rem, 1.15rem + 1vw, 2rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-primary);
+}
+
+.order-steps h2 { margin: 0 0 6px; font-size: 1.0625rem; }
+.order-steps p { margin: 0; color: var(--color-muted); line-height: 1.7; max-width: 62ch; }
+
+@media (min-width: 640px) {
+  .shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 768px) {
+  .gallery-grid { columns: 3; }
+  .split { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pd-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .nav-cta { display: inline-flex; }
+}
+
+@media (min-width: 1024px) {
+  .shop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .page-head { padding-block: var(--space-2xl) var(--space-lg); }
+}
+
+@media (min-width: 1200px) {
+  .gallery-grid { columns: 4; }
+}
+
+/* ==========================================================================
+   27. RESPONSIVE — TABLET
    ========================================================================== */
 @media (min-width: 640px) {
   :root { --gutter: 32px; }
@@ -1497,7 +1897,7 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
 }
 
 /* ==========================================================================
-   19. RESPONSIVE — DESKTOP
+   28. RESPONSIVE — DESKTOP
    ========================================================================== */
 @media (min-width: 1024px) {
   :root { --gutter: 40px; --nav-h: 72px; }
@@ -1506,31 +1906,25 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
   .menu-btn { display: none; }
   .mobile-menu { display: none; }
 
-  /* Hero: teks kiri, foto besar dengan sedikit tumpang tindih */
-  .hero { padding-block: var(--space-3xl) var(--space-3xl); }
+  /* Hero: teks lebih sempit, foto lebih dominan */
+  .hero { padding-block: var(--space-3xl) var(--space-4xl); }
 
   .hero-grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--space-lg);
-    align-items: start;
+    column-gap: var(--space-2xl);
+    align-items: center;
   }
 
   .hero-copy {
-    grid-column: 1 / span 6;
-    max-width: 30rem;
+    grid-column: 1 / span 5;
+    max-width: 27rem;
     padding-left: var(--space-md);
     border-left: 1px solid var(--color-border);
   }
 
-  .hero-visual {
-    grid-column: 6 / span 7;
-    margin-left: -32px;
-    padding-top: var(--space-sm);
-  }
+  .hero-visual { grid-column: 6 / span 7; }
 
-  .hero-media { aspect-ratio: auto; height: clamp(420px, 62vh, 620px); }
-
-  .hero-detail { display: block; left: -24px; }
+  .hero-media { aspect-ratio: auto; height: clamp(500px, 68vh, 700px); }
 
   /* Katalog: kartu unggulan mendatar, dua kartu lain bersebelahan */
   .product-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--space-md); }
@@ -1548,7 +1942,7 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
 
   .product-grid > .product-card:not(.product-card--featured) { grid-column: span 6; }
 
-  .product-card:not(.product-card--featured) .product-media { aspect-ratio: 16 / 10; }
+  .product-card:not(.product-card--featured) .product-media { aspect-ratio: 4 / 3; }
 
   /* Timeline mendatar */
   .timeline { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--space-md); }
@@ -1600,7 +1994,7 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
 }
 
 /* ==========================================================================
-   20. REDUCED MOTION
+   29. REDUCED MOTION
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -1618,6 +2012,9 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
   }
 
   .js .reveal { opacity: 1; transform: none; }
+
+  /* Ticker berhenti, hanya tampil statis */
+  .ticker-track { animation: none; }
 }
 </style>
 </head>
@@ -1626,7 +2023,7 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
 <a class="skip-link" href="#main">Lewati ke konten utama</a>
 
 <!-- ==========================================================================
-     LOADER — 3 detik, bisa diklik untuk dilewati
+     LOADER — singkat, bisa diklik untuk dilewati
      ========================================================================== -->
 <div class="loader" id="loader" role="status" aria-label="Memuat ManggaKu">
   <div class="loader-inner">
@@ -1664,13 +2061,16 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
     </a>
 
     <nav class="nav-links" id="navLinks" aria-label="Navigasi utama">
-      <a href="#produk">Produk</a>
-      <a href="#cerita">Cerita</a>
-      <a href="#keunggulan">Keunggulan</a>
-      <a href="#cara-pesan">Cara Pesan</a>
+      <a href="#/" data-route-link="home">Home</a>
+      <a href="#/shop" data-route-link="shop">Shop</a>
+      <a href="#/gallery" data-route-link="gallery">Gallery</a>
+      <a href="#/about" data-route-link="about">About</a>
+      <a href="#/how-to-order" data-route-link="how-to-order">Cara Pesan</a>
     </nav>
 
     <div class="nav-actions">
+      <a class="btn btn--outline btn--sm nav-cta" href="#/shop">Belanja Sekarang</a>
+
       <button class="cart-btn" id="cartButton" type="button" data-action="open-cart"
               aria-label="Buka keranjang belanja">
         <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true">
@@ -1691,17 +2091,20 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
   <div class="mobile-menu" id="mobileMenu">
     <nav aria-label="Navigasi mobile">
       <ul>
-        <li><a href="#produk" data-action="close-menu">Produk</a></li>
-        <li><a href="#cerita" data-action="close-menu">Cerita</a></li>
-        <li><a href="#keunggulan" data-action="close-menu">Keunggulan</a></li>
-        <li><a href="#cara-pesan" data-action="close-menu">Cara Pesan</a></li>
+        <li><a href="#/" data-route-link="home" data-action="close-menu">Home</a></li>
+        <li><a href="#/shop" data-route-link="shop" data-action="close-menu">Shop</a></li>
+        <li><a href="#/gallery" data-route-link="gallery" data-action="close-menu">Gallery</a></li>
+        <li><a href="#/about" data-route-link="about" data-action="close-menu">About</a></li>
+        <li><a href="#/how-to-order" data-route-link="how-to-order" data-action="close-menu">Cara Pesan</a></li>
       </ul>
-      <a class="btn btn--primary btn--block" href="#produk" data-action="close-menu">Belanja Sekarang</a>
+      <a class="btn btn--primary btn--block" href="#/shop" data-action="close-menu">Belanja Sekarang</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
+
+<div class="page" id="page-home" data-page="home">
 
   <!-- ========================================================================
        HERO
@@ -1717,46 +2120,37 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
         </h1>
 
         <p class="hero-sub">
-          Pilihan mangga segar dengan rasa terbaik, dipilih dengan hati
-          untuk sampai ke rumahmu.
+          Mangga matang pohon dari kebun mitra, dipilih satu per satu
+          lalu dikirim di hari yang sama.
         </p>
 
         <div class="hero-cta">
-          <a class="btn btn--primary" href="#produk">Belanja Sekarang</a>
-          <a class="link" href="#produk">
-            Lihat Produk
+          <a class="btn btn--primary" href="#/shop">Belanja Sekarang</a>
+          <a class="link" href="#/gallery">
+            Lihat Galeri
             <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M5 12h14M13 6l6 6-6 6"/>
             </svg>
           </a>
         </div>
 
-        <ul class="hero-meta">
-          <li><span class="dot" aria-hidden="true"></span>Freshly Selected</li>
-          <li>Packed With Care</li>
-          <li>Ready To Enjoy</li>
-        </ul>
-
         <p class="hero-note">
-          Dijual per kilogram, minimum 1 kg. Dikirim dari kebun mitra kami
-          di Indramayu, Majalengka, dan Situbondo.
+          Dijual per kilogram · Minimum 1 kg · Dikirim dari kebun mitra
+          Indramayu, Majalengka, Situbondo
         </p>
       </div>
 
       <div class="hero-visual">
-        <div class="hero-media">
-          <span class="hero-tag"><span class="dot" aria-hidden="true"></span>Panen pagi ini</span>
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Harvested_mangoes_in_a_basket.jpg/1280px-Harvested_mangoes_in_a_basket.jpg"
+        <figure class="hero-media">
+          <img class="img-stock"
+               src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Harvested_mangoes_in_a_basket.jpg/1280px-Harvested_mangoes_in_a_basket.jpg"
                alt="Mangga hasil panen yang tertata di dalam keranjang bambu"
                width="1280" height="1600" fetchpriority="high" decoding="async"
                onerror="window.manggaImgFallback && window.manggaImgFallback(this)">
-        </div>
+          <span class="hero-tag"><span class="dot" aria-hidden="true"></span>Panen pagi ini</span>
+        </figure>
 
-        <span class="hero-detail" aria-hidden="true">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Cut_mangoes_on_plate.jpg/960px-Cut_mangoes_on_plate.jpg"
-               alt="" width="960" height="871" loading="lazy" decoding="async"
-               onerror="window.manggaImgFallback && window.manggaImgFallback(this)">
-        </span>
+        <p class="photo-note">Foto ilustrasi dari arsip stok, bukan foto produk ManggaKu.</p>
       </div>
     </div>
   </section>
@@ -1768,7 +2162,7 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
     <div class="container">
       <header class="head reveal">
         <span class="eyebrow">Pilihan Mangga</span>
-        <h2>Yang paling banyak dicari.</h2>
+        <h2>Beberapa favorit untuk memulai.</h2>
         <p>Tiga jenis mangga pilihan kami. Setiap jenis punya karakter rasa yang berbeda.</p>
       </header>
 
@@ -1776,8 +2170,12 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
         <!-- Kartu produk dirender dari data produk di JavaScript -->
       </div>
 
+      <div class="section-actions">
+        <a class="btn btn--outline" href="#/shop">Lihat Produk</a>
+      </div>
+
       <noscript>
-        <p class="lede" style="margin-top:24px">
+        <p class="lede">
           Aktifkan JavaScript untuk menampilkan produk dan memesan melalui WhatsApp.
         </p>
       </noscript>
@@ -1829,47 +2227,47 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
   </section>
 
   <!-- ========================================================================
-       KEUNGGULAN
+       TICKER — pemisah editorial, satu baris, tanpa JavaScript
+       Dua grup identik digeser -50% supaya perulangannya mulus.
        ======================================================================== -->
-  <section class="section" id="keunggulan">
-    <div class="container">
-      <header class="head reveal">
-        <span class="eyebrow">Kenapa ManggaKu</span>
-        <h2>Empat hal yang kami jaga di setiap pesanan.</h2>
-      </header>
-
-      <ol class="benefits">
-        <li class="benefit reveal">
-          <span class="benefit-num">01</span>
-          <div>
-            <h3>Dipilih dengan teliti</h3>
-            <p>Buah dipilih saat matang pohon, bukan sisa stok gudang.</p>
-          </div>
-        </li>
-        <li class="benefit reveal">
-          <span class="benefit-num">02</span>
-          <div>
-            <h3>Dikemas dengan perhatian</h3>
-            <p>Bantalan kertas dan kardus berventilasi agar buah tidak rusak di perjalanan.</p>
-          </div>
-        </li>
-        <li class="benefit reveal">
-          <span class="benefit-num">03</span>
-          <div>
-            <h3>Dikirim secepatnya</h3>
-            <p>Pesanan sebelum pukul 14.00 WIB disiapkan dan dikirim di hari yang sama.</p>
-          </div>
-        </li>
-        <li class="benefit reveal">
-          <span class="benefit-num">04</span>
-          <div>
-            <h3>Kualitas tetap diutamakan</h3>
-            <p>Kami lebih memilih mengirim lebih sedikit daripada menurunkan kualitas.</p>
-          </div>
-        </li>
-      </ol>
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <div class="ticker-group">
+        <span>Dipetik saat matang</span>
+        <span>Dikirim hari yang sama</span>
+        <span>Kebun mitra Indramayu · Majalengka · Situbondo</span>
+        <span>Dipetik saat matang</span>
+        <span>Dikirim hari yang sama</span>
+        <span>Kebun mitra Indramayu · Majalengka · Situbondo</span>
+        <span>Dipetik saat matang</span>
+        <span>Dikirim hari yang sama</span>
+        <span>Kebun mitra Indramayu · Majalengka · Situbondo</span>
+        <span>Dipetik saat matang</span>
+        <span>Dikirim hari yang sama</span>
+        <span>Kebun mitra Indramayu · Majalengka · Situbondo</span>
+        <span>Dipetik saat matang</span>
+        <span>Dikirim hari yang sama</span>
+        <span>Kebun mitra Indramayu · Majalengka · Situbondo</span>
+      </div>
+      <div class="ticker-group">
+        <span>Dipetik saat matang</span>
+        <span>Dikirim hari yang sama</span>
+        <span>Kebun mitra Indramayu · Majalengka · Situbondo</span>
+        <span>Dipetik saat matang</span>
+        <span>Dikirim hari yang sama</span>
+        <span>Kebun mitra Indramayu · Majalengka · Situbondo</span>
+        <span>Dipetik saat matang</span>
+        <span>Dikirim hari yang sama</span>
+        <span>Kebun mitra Indramayu · Majalengka · Situbondo</span>
+        <span>Dipetik saat matang</span>
+        <span>Dikirim hari yang sama</span>
+        <span>Kebun mitra Indramayu · Majalengka · Situbondo</span>
+        <span>Dipetik saat matang</span>
+        <span>Dikirim hari yang sama</span>
+        <span>Kebun mitra Indramayu · Majalengka · Situbondo</span>
+      </div>
     </div>
-  </section>
+  </div>
 
   <!-- ========================================================================
        CARA PESAN / TIMELINE
@@ -1905,49 +2303,27 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
       </ol>
 
       <div class="story-note reveal">
-        <p>
-          Pesan praktis lewat WhatsApp. Pilih mangga, isi nama dan alamat,
-          lalu kirim pesananmu langsung ke nomor toko kami.
-        </p>
-        <button class="btn btn--outline" type="button" data-action="open-cart">Mulai Pesan</button>
+        <p>Pesan lewat WhatsApp. Pilih mangga, isi nama dan alamat, lalu kirim pesanmu.</p>
+        <a class="btn btn--outline" href="#/how-to-order">Cara Pesan</a>
       </div>
     </div>
   </section>
 
   <!-- ========================================================================
-       TESTIMONI
+       GALERI — pratinjau (dirender dari data galeri yang sama)
        ======================================================================== -->
-  <section class="section section--ruled" id="testimoni">
+  <section class="section section--ruled" id="galeri-preview">
     <div class="container">
       <header class="head reveal">
-        <span class="eyebrow">Testimoni</span>
-        <h2>Cerita dari pelanggan kami.</h2>
+        <span class="eyebrow">Galeri</span>
+        <h2>Sekilas dari kebun dan dapur.</h2>
+        <p>Cuplikan kecil dari kebun mitra, proses sortir, sampai mangga siap disantap.</p>
       </header>
 
-      <div class="quotes">
-        <figure class="quote reveal">
-          <blockquote>Manisnya pas dan packing-nya rapi. Sampai rumah masih fresh.</blockquote>
-          <figcaption class="quote-foot">
-            <span class="avatar" aria-hidden="true">R</span>
-            <span><strong>Rina</strong> · Jakarta</span>
-          </figcaption>
-        </figure>
+      <div class="gallery-grid gallery-grid--preview" id="homeGallery"></div>
 
-        <figure class="quote reveal">
-          <blockquote>Pesan sore dikirim besok paginya. Anak-anak suka Manalaginya.</blockquote>
-          <figcaption class="quote-foot">
-            <span class="avatar" aria-hidden="true">B</span>
-            <span><strong>Bayu</strong> · Bandung</span>
-          </figcaption>
-        </figure>
-
-        <figure class="quote reveal">
-          <blockquote>Sudah tiga kali pesan dan kualitasnya konsisten.</blockquote>
-          <figcaption class="quote-foot">
-            <span class="avatar" aria-hidden="true">S</span>
-            <span><strong>Sarah</strong> · Surabaya</span>
-          </figcaption>
-        </figure>
+      <div class="section-actions">
+        <a class="btn btn--outline" href="#/gallery">Lihat Galeri</a>
       </div>
     </div>
   </section>
@@ -1962,9 +2338,9 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
       <p>Segar, manis, dan siap menemani meja makanmu.</p>
 
       <div class="cta-actions">
-        <button class="btn btn--accent" type="button" data-action="open-cart">Pesan Sekarang</button>
-        <a class="link" href="#produk">
-          Lihat produk
+        <a class="btn btn--accent" href="#/shop">Belanja Sekarang</a>
+        <a class="link" href="#/how-to-order">
+          Cara pesan
           <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 12h14M13 6l6 6-6 6"/>
           </svg>
@@ -1972,6 +2348,327 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
       </div>
     </div>
   </section>
+
+</div><!-- /.page — home -->
+
+<!-- ==========================================================================
+     HALAMAN SHOP
+     ========================================================================== -->
+<div class="page" id="page-shop" data-page="shop" hidden>
+  <section class="section">
+    <div class="container">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+          <li><a href="#/">Home</a></li>
+          <li><span class="sep" aria-hidden="true">/</span><span aria-current="page">Shop</span></li>
+        </ol>
+      </nav>
+
+      <header class="page-head">
+        <span class="eyebrow">Our collection</span>
+        <h1>Semua Mangga</h1>
+        <p class="lede">Temukan pilihan mangga segar untuk berbagai selera.</p>
+        <p class="shop-count" id="shopCount" role="status">3 produk tersedia</p>
+      </header>
+
+      <div class="shop-toolbar">
+        <div class="filter-group" role="group" aria-label="Filter produk">
+          <span class="filter-label" id="shopFilterLabel">Filter</span>
+          <button class="chip" type="button" data-action="filter-products" data-filter="all"
+                  aria-pressed="true" aria-describedby="shopFilterLabel">Semua</button>
+          <button class="chip" type="button" data-action="filter-products" data-filter="favorit"
+                  aria-pressed="false" aria-describedby="shopFilterLabel">Favorit</button>
+          <button class="chip" type="button" data-action="filter-products" data-filter="premium"
+                  aria-pressed="false" aria-describedby="shopFilterLabel">Premium</button>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="shopSort">Urutkan</label>
+          <div class="select-wrap">
+            <select id="shopSort" data-action="sort-products" aria-label="Urutkan produk">
+              <option value="recommended">Rekomendasi</option>
+              <option value="price-asc">Harga Terendah</option>
+              <option value="price-desc">Harga Tertinggi</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="sr-only">Daftar mangga</h2>
+      <div class="shop-grid" id="shopGrid"></div>
+
+      <div class="empty-state" id="shopEmpty" hidden>
+        <h2>Tidak ada produk pada filter ini.</h2>
+        <p>Coba pilih filter lain untuk melihat semua mangga yang tersedia.</p>
+        <button class="btn btn--outline" type="button" data-action="filter-products" data-filter="all">
+          Lihat Produk
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <div class="page-cta">
+        <span class="eyebrow">Butuh bantuan?</span>
+        <h2>Bingung memilih mangga?</h2>
+        <p>Chat kami lewat WhatsApp. Kami bantu pilihkan jenis dan jumlah sesuai kebutuhanmu.</p>
+        <div class="page-actions">
+          <a class="btn btn--primary" href="#" data-wa-link>Tanya via WhatsApp</a>
+          <a class="btn btn--outline" href="#/how-to-order">Cara Pesan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==========================================================================
+     HALAMAN GALLERY
+     ========================================================================== -->
+<div class="page" id="page-gallery" data-page="gallery" hidden>
+  <section class="section">
+    <div class="container">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+          <li><a href="#/">Home</a></li>
+          <li><span class="sep" aria-hidden="true">/</span><span aria-current="page">Gallery</span></li>
+        </ol>
+      </nav>
+
+      <header class="page-head">
+        <span class="eyebrow">Our gallery</span>
+        <h1>Rasa yang terlihat.</h1>
+        <p class="lede">
+          Potongan kecil dari kebun, produk, proses, dan cerita di balik ManggaKu.
+        </p>
+        <p class="photo-note">Foto ilustrasi dari arsip stok; foto kebun ManggaKu menyusul.</p>
+      </header>
+
+      <figure class="gallery-featured">
+        <img class="img-stock"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Cut_mangoes_on_plate.jpg/960px-Cut_mangoes_on_plate.jpg"
+             alt="Potongan mangga matang yang disajikan di atas piring"
+             width="960" height="871" fetchpriority="high" decoding="async"
+             onerror="window.manggaImgFallback && window.manggaImgFallback(this)">
+        <figcaption>Mangga matang, siap disantap</figcaption>
+      </figure>
+
+      <div class="shop-toolbar">
+        <div class="filter-group" role="group" aria-label="Filter galeri">
+          <span class="filter-label" id="galleryFilterLabel">Kategori</span>
+          <button class="chip" type="button" data-action="filter-gallery" data-filter="all"
+                  aria-pressed="true" aria-describedby="galleryFilterLabel">All</button>
+          <button class="chip" type="button" data-action="filter-gallery" data-filter="product"
+                  aria-pressed="false" aria-describedby="galleryFilterLabel">Product</button>
+          <button class="chip" type="button" data-action="filter-gallery" data-filter="orchard"
+                  aria-pressed="false" aria-describedby="galleryFilterLabel">Orchard</button>
+          <button class="chip" type="button" data-action="filter-gallery" data-filter="process"
+                  aria-pressed="false" aria-describedby="galleryFilterLabel">Process</button>
+          <button class="chip" type="button" data-action="filter-gallery" data-filter="packaging"
+                  aria-pressed="false" aria-describedby="galleryFilterLabel">Packaging</button>
+          <button class="chip" type="button" data-action="filter-gallery" data-filter="lifestyle"
+                  aria-pressed="false" aria-describedby="galleryFilterLabel">Lifestyle</button>
+        </div>
+
+        <p class="shop-count" id="galleryCount" role="status">19 foto</p>
+      </div>
+
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <div class="page-cta">
+        <span class="eyebrow">Siap mencoba?</span>
+        <h2>Mau mencicipi yang kamu lihat?</h2>
+        <p>Pilih mangga favoritmu, kami kirim segar dari kebun mitra pada hari yang sama.</p>
+        <div class="page-actions">
+          <a class="btn btn--primary" href="#/shop">Belanja Sekarang</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==========================================================================
+     HALAMAN ABOUT
+     ========================================================================== -->
+<div class="page" id="page-about" data-page="about" hidden>
+  <section class="section">
+    <div class="container">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+          <li><a href="#/">Home</a></li>
+          <li><span class="sep" aria-hidden="true">/</span><span aria-current="page">About</span></li>
+        </ol>
+      </nav>
+
+      <header class="page-head">
+        <span class="eyebrow">About Manggaku</span>
+        <h1>Buah sederhana, dipilih dengan teliti.</h1>
+        <p class="lede">
+          ManggaKu menjual mangga segar per kilogram. Kami memilih buah saat matang pohon,
+          memeriksa satu per satu, lalu mengirimnya pada hari yang sama.
+        </p>
+      </header>
+
+      <div class="split">
+        <figure class="split-media reveal">
+          <img class="img-stock"
+               src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Mango_orchard_in_Lucknow.jpg/1280px-Mango_orchard_in_Lucknow.jpg"
+               alt="Barisan pohon mangga di kebun mitra"
+               width="1280" height="960" loading="lazy" decoding="async"
+               onerror="window.manggaImgFallback && window.manggaImgFallback(this)">
+        </figure>
+
+        <div class="split-body reveal">
+          <span class="eyebrow">Cara kami bekerja</span>
+          <h2>Satu jenis buah, satu standar yang dijaga.</h2>
+          <p>
+            Kami bekerja sama dengan kebun mitra di Indramayu, Majalengka, dan Situbondo.
+            Buah dipilih saat matang pohon, bukan dari stok yang menunggu di gudang.
+          </p>
+          <p>
+            Setelah dipilih, setiap butir diperiksa satu per satu. Hanya buah yang lolos
+            pemeriksaan yang masuk ke kemasan, lalu dikirim dengan bantalan agar sampai
+            di rumahmu dalam kondisi terbaik.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <header class="head reveal">
+        <span class="eyebrow">Yang kami pegang</span>
+        <h2>Empat hal yang tidak kami tawar.</h2>
+      </header>
+
+      <ol class="value-list">
+        <li>
+          <span class="value-num">01</span>
+          <div>
+            <h3>Dipilih saat matang pohon</h3>
+            <p>Rasa terbaik datang dari buah yang dipetik pada waktu yang tepat.</p>
+          </div>
+        </li>
+        <li>
+          <span class="value-num">02</span>
+          <div>
+            <h3>Diperiksa satu per satu</h3>
+            <p>Tidak ada buah lewat tanpa dilihat. Yang tidak lolos tidak dikirim.</p>
+          </div>
+        </li>
+        <li>
+          <span class="value-num">03</span>
+          <div>
+            <h3>Kemasan yang melindungi</h3>
+            <p>Kardus berventilasi dengan bantalan kertas, supaya buah tidak saling menekan.</p>
+          </div>
+        </li>
+        <li>
+          <span class="value-num">04</span>
+          <div>
+            <h3>Dikirim di hari yang sama</h3>
+            <p>Pesanan sebelum pukul 14.00 WIB disiapkan dan dikirim hari itu juga.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="page-cta">
+        <span class="eyebrow">Mulai dari sini</span>
+        <h2>Coba satu kilogram dulu.</h2>
+        <p>Pilih jenis favoritmu, kami kirim dari kebun mitra tempat buah itu tumbuh.</p>
+        <div class="page-actions">
+          <a class="btn btn--primary" href="#/shop">Belanja Sekarang</a>
+          <a class="btn btn--outline" href="#/gallery">Lihat Galeri</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==========================================================================
+     HALAMAN CARA PESAN
+     ========================================================================== -->
+<div class="page" id="page-how" data-page="how-to-order" hidden>
+  <section class="section">
+    <div class="container">
+      <nav aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+          <li><a href="#/">Home</a></li>
+          <li><span class="sep" aria-hidden="true">/</span><span aria-current="page">Cara Pesan</span></li>
+        </ol>
+      </nav>
+
+      <header class="page-head">
+        <span class="eyebrow">How to order</span>
+        <h1>Cara Pesan</h1>
+        <p class="lede">
+          Lima langkah singkat dari memilih mangga sampai pesanan dikonfirmasi lewat WhatsApp.
+        </p>
+      </header>
+
+      <ol class="order-steps">
+        <li>
+          <span class="order-step-num">01</span>
+          <div>
+            <h2>Pilih produk</h2>
+            <p>Buka halaman Shop, lalu pilih jenis mangga dan jumlah kilogram yang kamu butuhkan.</p>
+          </div>
+        </li>
+        <li>
+          <span class="order-step-num">02</span>
+          <div>
+            <h2>Masukkan ke keranjang</h2>
+            <p>Tekan Tambah ke Keranjang. Jumlah pada keranjang bisa diubah kapan saja.</p>
+          </div>
+        </li>
+        <li>
+          <span class="order-step-num">03</span>
+          <div>
+            <h2>Isi data pesanan</h2>
+            <p>Buka keranjang, tekan Checkout, lalu isi nama, nomor HP, dan alamat pengiriman.</p>
+          </div>
+        </li>
+        <li>
+          <span class="order-step-num">04</span>
+          <div>
+            <h2>Checkout lewat WhatsApp</h2>
+            <p>Rincian pesanan otomatis tersusun rapi dan dikirim ke WhatsApp ManggaKu.</p>
+          </div>
+        </li>
+        <li>
+          <span class="order-step-num">05</span>
+          <div>
+            <h2>Konfirmasi pesanan</h2>
+            <p>Kami konfirmasi ketersediaan, ongkos kirim, dan jadwal pengiriman lewat WhatsApp.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="container">
+      <div class="page-cta">
+        <span class="eyebrow">Siap mulai?</span>
+        <h2>Pesan sebelum 14.00 WIB, dikirim hari yang sama.</h2>
+        <p>Pembayaran dan ongkos kirim dikonfirmasi lewat WhatsApp setelah pesanan kami terima.</p>
+        <div class="page-actions">
+          <a class="btn btn--primary" href="#/shop">Belanja Sekarang</a>
+          <a class="btn btn--outline" href="#" data-wa-link>Tanya via WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
 </main>
 
@@ -1982,7 +2679,7 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="wordmark" href="#home" aria-label="ManggaKu — kembali ke atas">
+        <a class="wordmark" href="#/" aria-label="ManggaKu — ke halaman utama">
           <span class="wordmark-mark" aria-hidden="true">
             <img src="mangga-mark.png" alt="" width="32" height="32" loading="lazy" decoding="async"
                  onerror="this.closest('.wordmark-mark').hidden = true">
@@ -1995,18 +2692,19 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
       <div class="footer-col">
         <h3>Produk</h3>
         <ul>
-          <li><a href="#produk">Harum Manis</a></li>
-          <li><a href="#produk">Gedong Gincu</a></li>
-          <li><a href="#produk">Manalagi</a></li>
+          <li><a href="#/shop" data-action="open-product" data-product="harum-manis">Harum Manis</a></li>
+          <li><a href="#/shop" data-action="open-product" data-product="gedong-gincu">Gedong Gincu</a></li>
+          <li><a href="#/shop" data-action="open-product" data-product="manalagi">Manalagi</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h3>Informasi</h3>
+        <h3>Navigasi</h3>
         <ul>
-          <li><a href="#cerita">Cerita Kami</a></li>
-          <li><a href="#cara-pesan">Cara Pesan</a></li>
-          <li><a href="#keunggulan">Keunggulan</a></li>
+          <li><a href="#/shop" data-route-link="shop">Shop</a></li>
+          <li><a href="#/gallery" data-route-link="gallery">Gallery</a></li>
+          <li><a href="#/about" data-route-link="about">About</a></li>
+          <li><a href="#/how-to-order" data-route-link="how-to-order">Cara Pesan</a></li>
         </ul>
       </div>
 
@@ -2025,6 +2723,7 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
         <span class="dot" aria-hidden="true"></span>
         Menerima pesanan
       </span>
+      <span class="photo-note">Foto di situs ini masih memakai arsip stok sebagai placeholder.</span>
       <span>© 2026 ManggaKu.</span>
     </div>
   </div>
@@ -2131,6 +2830,96 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
   </div>
 </div>
 
+<!-- ==========================================================================
+     LIGHTBOX GALERI
+     ========================================================================== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true"
+     aria-labelledby="lightboxCaption" aria-hidden="true">
+  <div class="lightbox-head">
+    <span class="lightbox-cat" id="lightboxCat"></span>
+    <button class="icon-btn icon-btn--on-dark" type="button" data-action="close-lightbox"
+            aria-label="Tutup foto">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+
+  <div class="lightbox-body">
+    <img id="lightboxImage" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3C/svg%3E" alt="">
+  </div>
+
+  <div class="lightbox-foot">
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+
+    <div class="lightbox-nav">
+      <button class="icon-btn icon-btn--on-dark" type="button" data-action="lightbox-prev"
+              aria-label="Foto sebelumnya">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <span class="lightbox-count" id="lightboxCount"></span>
+      <button class="icon-btn icon-btn--on-dark" type="button" data-action="lightbox-next"
+              aria-label="Foto berikutnya">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     PRODUCT DETAIL MODAL
+     ========================================================================== -->
+<div class="modal" id="productModal" role="dialog" aria-modal="true"
+     aria-labelledby="productModalTitle" aria-hidden="true">
+  <div class="modal-card">
+    <header class="modal-head">
+      <div>
+        <span class="eyebrow" id="productModalCat"></span>
+        <h2 id="productModalTitle">Detail produk</h2>
+      </div>
+      <button class="icon-btn" type="button" data-action="close-product"
+              aria-label="Tutup detail produk">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </header>
+
+    <div class="pd-grid">
+      <figure class="pd-media">
+        <img id="productModalImage" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1'%20height='1'%3E%3C/svg%3E" alt="" width="960" height="720">
+      </figure>
+
+      <div class="pd-body">
+        <p class="pd-desc" id="productModalDesc"></p>
+
+        <div class="price-row">
+          <span class="price" id="productModalPrice"></span>
+          <span class="unit" id="productModalUnit"></span>
+        </div>
+
+        <ul class="pd-facts">
+          <li><span>Profil rasa</span><span id="productModalTaste"></span></li>
+          <li><span>Asal kebun</span><span id="productModalOrigin"></span></li>
+          <li><span>Satuan</span><span id="productModalSatuan"></span></li>
+        </ul>
+
+        <div class="pd-buy">
+          <div class="stepper" role="group" aria-label="Jumlah pesanan">
+            <button type="button" data-action="modal-qty-dec" aria-label="Kurangi jumlah">
+              <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>
+            </button>
+            <span class="qty" id="productModalQty">1</span>
+            <button type="button" data-action="modal-qty-inc" aria-label="Tambah jumlah">
+              <svg class="icon icon--sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+
+          <button class="btn btn--primary" type="button" data-action="modal-add">
+            Tambah ke Keranjang
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast-wrap">
   <div class="toast" id="toast" role="status" aria-live="polite">
     <span id="toastText"></span>
@@ -2164,6 +2953,8 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
       name: "Mangga Harum Manis",
       price: 25000,
       unit: "kg",
+      origin: "Indramayu",
+      tags: ["favorit"],
       category: "Mangga · Indramayu",
       taste: "Sweet · Fragrant · Soft",
       description: "Manis dengan aroma paling kuat dan daging buah yang lembut. Pilihan aman kalau kamu suka mangga yang wangi.",
@@ -2178,6 +2969,8 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
       name: "Mangga Gedong Gincu",
       price: 30000,
       unit: "kg",
+      origin: "Majalengka",
+      tags: ["premium"],
       category: "Mangga · Majalengka",
       taste: "Sweet · Juicy · Aromatic",
       description: "Kulit kemerahan dengan rasa manis legit dan sedikit asam segar.",
@@ -2192,6 +2985,8 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
       name: "Mangga Manalagi",
       price: 28000,
       unit: "kg",
+      origin: "Situbondo",
+      tags: ["favorit"],
       category: "Mangga · Situbondo",
       taste: "Sweet · Thick · Rich",
       description: "Daging buah paling tebal dari ketiganya, manisnya kuat dan aromanya tajam.",
@@ -2200,6 +2995,173 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
       featured: false,
       image: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Manalagi_situbondo_071224-2877_tdp.jpg/960px-Manalagi_situbondo_071224-2877_tdp.jpg",
       alt: "Mangga Manalagi segar hasil panen dari Situbondo"
+    }
+  ];
+
+  /* ------------------------------------------------------------------------
+     2b. DATA GALERI
+     Catatan: foto di bawah ini masih foto stok (Wikimedia Commons) sebagai
+     placeholder. Ganti `src` dengan foto asli kebun/produk ManggaKu saat sudah
+     tersedia — struktur data dan halaman tidak perlu diubah.
+     ------------------------------------------------------------------------ */
+  const galleryItems = [
+    {
+      id: "harumanis",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Harumanis.jpg/1280px-Harumanis.jpg",
+      alt: "Mangga Harum Manis hijau kekuningan yang matang di pohon",
+      category: "product",
+      caption: "Harum Manis",
+      ratio: "3 / 4"
+    },
+    {
+      id: "gedong-gincu",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Mangga_Gedonggincu_Pj_DSC_0423.jpg/1280px-Mangga_Gedonggincu_Pj_DSC_0423.jpg",
+      alt: "Mangga Gedong Gincu dengan kulit kemerahan",
+      category: "product",
+      caption: "Gedong Gincu",
+      ratio: "4 / 3"
+    },
+    {
+      id: "manalagi",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Manalagi_situbondo_071224-2877_tdp.jpg/1280px-Manalagi_situbondo_071224-2877_tdp.jpg",
+      alt: "Mangga Manalagi dari Situbondo",
+      category: "product",
+      caption: "Manalagi",
+      ratio: "1 / 1"
+    },
+    {
+      id: "cross-section",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Mango_and_cross_section_edit.jpg/1280px-Mango_and_cross_section_edit.jpg",
+      alt: "Mangga utuh dengan potongan melintang",
+      category: "product",
+      caption: "Mangga utuh dan potongannya",
+      ratio: "4 / 3",
+      preview: true
+    },
+    {
+      id: "single-halved",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Mangos_-_single_and_halved.jpg/1280px-Mangos_-_single_and_halved.jpg",
+      alt: "Mangga utuh dan mangga yang sudah dibelah",
+      category: "product",
+      caption: "Mangga matang di meja",
+      ratio: "4 / 3"
+    },
+    {
+      id: "market-display",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Perfectly_Arranged_Yellow_Mangoes_on_Market_Display.jpg/1280px-Perfectly_Arranged_Yellow_Mangoes_on_Market_Display.jpg",
+      alt: "Mangga kuning tersusun rapi",
+      category: "product",
+      caption: "Siap dipilih",
+      ratio: "4 / 3"
+    },
+    {
+      id: "orchard-lucknow",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Mango_orchard_in_Lucknow.jpg/1280px-Mango_orchard_in_Lucknow.jpg",
+      alt: "Barisan pohon mangga di kebun",
+      category: "orchard",
+      caption: "Baris kebun mitra",
+      ratio: "4 / 3",
+      preview: true
+    },
+    {
+      id: "orchard-poovankurichi",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Mango_Orchard_in_Poovankurichi.jpg/1280px-Mango_Orchard_in_Poovankurichi.jpg",
+      alt: "Kebun mangga dengan deretan pohon",
+      category: "orchard",
+      caption: "Barisan pohon",
+      ratio: "4 / 3"
+    },
+    {
+      id: "amrapali-tree",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Chopped_Amrapali_mango_on_a_tree%2C_Kurigram%2C_Bangladesh.jpg/1280px-Chopped_Amrapali_mango_on_a_tree%2C_Kurigram%2C_Bangladesh.jpg",
+      alt: "Buah mangga menggantung di ranting pohon",
+      category: "orchard",
+      caption: "Buah di ranting",
+      ratio: "3 / 4",
+      preview: true
+    },
+    {
+      id: "lateritic",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Mango_orchard_in_lateritic_plateau.jpg/1280px-Mango_orchard_in_lateritic_plateau.jpg",
+      alt: "Kebun mangga di dataran tanah merah",
+      category: "orchard",
+      caption: "Kebun tanah merah",
+      ratio: "4 / 3"
+    },
+    {
+      id: "tree-flowers",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Mango_tree_flowers%2C_Umaria_district%2C_MP%2C_India.jpg/1280px-Mango_tree_flowers%2C_Umaria_district%2C_MP%2C_India.jpg",
+      alt: "Bunga pohon mangga yang mulai bermekaran",
+      category: "orchard",
+      caption: "Musim berbunga",
+      ratio: "3 / 4"
+    },
+    {
+      id: "wicker-basket",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Fresh_Green_Mangoes_Arranged_in_a_Wicker_Basket.jpg/1280px-Fresh_Green_Mangoes_Arranged_in_a_Wicker_Basket.jpg",
+      alt: "Mangga hijau tertata di dalam keranjang anyaman",
+      category: "process",
+      caption: "Dipilih satu per satu",
+      ratio: "4 / 3",
+      preview: true
+    },
+    {
+      id: "sortir",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Mango%2C_frutas%2C_Mangifera.jpg/1280px-Mango%2C_frutas%2C_Mangifera.jpg",
+      alt: "Mangga yang sedang dipisahkan berdasarkan ukuran",
+      category: "process",
+      caption: "Disortir harian",
+      ratio: "4 / 3"
+    },
+    {
+      id: "panen-pagi",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Mangos_%282810744352%29.jpg/1280px-Mangos_%282810744352%29.jpg",
+      alt: "Tumpukan mangga hasil panen pagi",
+      category: "process",
+      caption: "Panen pagi",
+      ratio: "4 / 3"
+    },
+    {
+      id: "basket-01",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Mangoes_in_a_basket_01.jpg/1280px-Mangoes_in_a_basket_01.jpg",
+      alt: "Mangga matang tersusun di dalam keranjang",
+      category: "packaging",
+      caption: "Pengemasan pesanan",
+      ratio: "4 / 3",
+      preview: true
+    },
+    {
+      id: "wooden-crate",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/DFC_2197_A_colorful_assortment_of_fresh_fruits_and_vegetables_-_apples_mango_dragon_fruit_kiwis_limes_bananas_and_more_-_arranged_on_a_wooden_crate.jpg/1280px-DFC_2197_A_colorful_assortment_of_fresh_fruits_and_vegetables_-_apples_mango_dragon_fruit_kiwis_limes_bananas_and_more_-_arranged_on_a_wooden_crate.jpg",
+      alt: "Buah-buahan segar tersusun di atas peti kayu",
+      category: "packaging",
+      caption: "Siap dikirim",
+      ratio: "4 / 3",
+      preview: true
+    },
+    {
+      id: "cut-plate-2",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Cut_mangoes_on_plate_2.jpg/1280px-Cut_mangoes_on_plate_2.jpg",
+      alt: "Mangga yang dipotong dan disajikan di atas piring",
+      category: "lifestyle",
+      caption: "Siap disantap",
+      ratio: "4 / 3"
+    },
+    {
+      id: "plate-full",
+      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/A_plate_full_of_mangoes.jpg/1280px-A_plate_full_of_mangoes.jpg",
+      alt: "Satu piring penuh mangga matang",
+      category: "lifestyle",
+      caption: "Meja makan",
+      ratio: "4 / 3"
+    },
+    {
+      id: "sliced",
+      src: "https://upload.wikimedia.org/wikipedia/commons/f/f7/Sliced_mango.jpg",
+      alt: "Potongan mangga segar",
+      category: "lifestyle",
+      caption: "Potongan segar",
+      ratio: "3 / 4"
     }
   ];
 
@@ -2274,36 +3236,71 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
     toastText: $("#toastText"),
     toastAction: $(".toast-action"),
     cartStatus: $("#cartStatus"),
-    productGrid: $("#productGrid")
+    productGrid: $("#productGrid"),
+    shopGrid: $("#shopGrid"),
+    shopEmpty: $("#shopEmpty"),
+    shopCount: $("#shopCount"),
+    shopSort: $("#shopSort"),
+    homeGallery: $("#homeGallery"),
+    galleryGrid: $("#galleryGrid"),
+    galleryCount: $("#galleryCount"),
+    lightbox: $("#lightbox"),
+    lightboxImage: $("#lightboxImage"),
+    lightboxCaption: $("#lightboxCaption"),
+    lightboxCat: $("#lightboxCat"),
+    lightboxCount: $("#lightboxCount"),
+    productModal: $("#productModal"),
+    productModalCat: $("#productModalCat"),
+    productModalTitle: $("#productModalTitle"),
+    productModalDesc: $("#productModalDesc"),
+    productModalPrice: $("#productModalPrice"),
+    productModalUnit: $("#productModalUnit"),
+    productModalTaste: $("#productModalTaste"),
+    productModalOrigin: $("#productModalOrigin"),
+    productModalSatuan: $("#productModalSatuan"),
+    productModalQty: $("#productModalQty"),
+    productModalImage: $("#productModalImage")
   };
 
   /* ------------------------------------------------------------------------
      6. RENDER PRODUK
      ------------------------------------------------------------------------ */
-  function productCardMarkup(product) {
-    const badge = product.badge
-      ? `<span class="badge${product.badgeAccent ? " badge--accent" : ""}">${product.badge}</span>`
+  function productCardMarkup(product, options = {}) {
+    const isShop = options.variant === "shop";
+    const featured = !isShop && Boolean(product.featured);
+
+    /* Badge hanya kalau memang penting — bukan di semua kartu */
+    const badge = featured && product.badge
+      ? `<span class="badge badge--accent">${product.badge}</span>`
       : "";
 
-    const description = product.featured
+    const description = featured
       ? `<p class="product-desc">${product.description}</p>`
       : "";
 
+    const detailLink = isShop
+      ? `<button class="btn btn--ghost btn--sm product-detail-link" type="button"
+                 data-action="open-product" data-product="${product.id}">Detail Produk</button>`
+      : "";
+
     return `
-      <article class="product-card${product.featured ? " product-card--featured" : ""} reveal"
+      <article class="product-card${featured ? " product-card--featured" : ""} reveal"
                data-product="${product.id}">
         <div class="product-media">
-          <img src="${product.image}" alt="${product.alt}" width="960" height="720"
-               loading="lazy" decoding="async"
-               onerror="window.manggaImgFallback && window.manggaImgFallback(this)">
+          <button class="product-media-btn" type="button" data-action="open-product"
+                  data-product="${product.id}" aria-label="Lihat detail ${product.name}">
+            <img src="${product.image}" alt="${product.alt}" width="960" height="720"
+                 loading="lazy" decoding="async"
+                 onerror="window.manggaImgFallback && window.manggaImgFallback(this)">
+          </button>
           ${badge}
         </div>
 
         <div class="product-body">
-          <span class="product-cat">${product.category}</span>
           <h3 class="product-name">${product.name}</h3>
           <p class="product-taste">${product.taste}</p>
           ${description}
+          ${detailLink}
 
           <div class="product-buy">
             <div class="price-row">
@@ -2333,8 +3330,69 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
 
   function renderProducts() {
     const ordered = [...products].sort((a, b) => Number(b.featured) - Number(a.featured));
-    dom.productGrid.innerHTML = ordered.map(productCardMarkup).join("");
+    dom.productGrid.innerHTML = ordered.map((product) => productCardMarkup(product)).join("");
     products.forEach((product) => rowQty.set(product.id, 1));
+    syncCardQtyLabels();
+  }
+
+  /* ------------------------------------------------------------------------
+     6b. SHOP — filter, sorting, dan grid katalog
+     ------------------------------------------------------------------------ */
+  let shopFilter = "all";
+  let shopSort = "recommended";
+
+  function shopProducts() {
+    const filtered = products.filter((product) => {
+      if (shopFilter === "all") return true;
+      return Array.isArray(product.tags) && product.tags.includes(shopFilter);
+    });
+
+    if (shopSort === "price-asc") return [...filtered].sort((a, b) => a.price - b.price);
+    if (shopSort === "price-desc") return [...filtered].sort((a, b) => b.price - a.price);
+    return [...filtered].sort((a, b) => Number(b.featured) - Number(a.featured));
+  }
+
+  function renderShop() {
+    if (!dom.shopGrid) return;
+
+    const list = shopProducts();
+    dom.shopGrid.innerHTML = list.map((product) => productCardMarkup(product, { variant: "shop" })).join("");
+    dom.shopGrid.hidden = list.length === 0;
+
+    if (dom.shopEmpty) dom.shopEmpty.hidden = list.length > 0;
+    if (dom.shopCount) {
+      dom.shopCount.textContent = list.length === 0
+        ? "Tidak ada produk pada filter ini"
+        : `${list.length} produk tersedia`;
+    }
+
+    products.forEach((product) => rowQty.set(product.id, 1));
+    syncCardQtyLabels();
+    observeReveals(dom.shopGrid);
+    initImageLoading();
+  }
+
+  /* Kedua grid (Home & Shop) menampilkan jumlah yang sama untuk produk yang sama */
+  function syncCardQtyLabels() {
+    products.forEach((product) => {
+      const value = String(rowQty.get(product.id) || 1);
+      $$(`[data-card-qty="${product.id}"]`).forEach((label) => {
+        label.textContent = value;
+      });
+    });
+  }
+
+  function setShopFilter(next) {
+    shopFilter = next;
+    $$('[data-action="filter-products"]').forEach((chip) => {
+      chip.setAttribute("aria-pressed", chip.dataset.filter === next ? "true" : "false");
+    });
+    renderShop();
+  }
+
+  function setShopSort(next) {
+    shopSort = next;
+    renderShop();
   }
 
   /* ------------------------------------------------------------------------
@@ -2497,7 +3555,7 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
     dom.overlay.classList.remove("is-open");
     dom.drawer.classList.remove("is-open");
     dom.drawer.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("is-locked");
+    releaseBodyLock();
 
     window.setTimeout(() => {
       if (!dom.drawer.classList.contains("is-open")) dom.overlay.hidden = true;
@@ -2526,8 +3584,12 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
   }
 
   function scrollToProducts() {
-    const target = document.getElementById("produk");
-    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (window.location.hash === ROUTES.shop.path) {
+      const target = document.getElementById("shopGrid");
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      return;
+    }
+    window.location.hash = ROUTES.shop.path;
   }
 
   let toastTimer = null;
@@ -2575,7 +3637,7 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
   function closeCheckout() {
     dom.modal.classList.remove("is-open");
     dom.modal.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("is-locked");
+    releaseBodyLock();
 
     if (lastFocused && typeof lastFocused.focus === "function") {
       lastFocused.focus({ preventScroll: true });
@@ -2740,19 +3802,78 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
         const current = rowQty.get(id) || 1;
         const next = Math.min(99, Math.max(1, current + (action === "qty-inc" ? 1 : -1)));
         rowQty.set(id, next);
-        const label = dom.productGrid.querySelector(`[data-card-qty="${id}"]`);
-        if (label) label.textContent = next;
+        syncCardQtyLabels();
         break;
       }
 
       case "add-to-cart": {
         const amount = rowQty.get(id) || 1;
         rowQty.set(id, 1);
-        const label = dom.productGrid.querySelector(`[data-card-qty="${id}"]`);
-        if (label) label.textContent = 1;
+        syncCardQtyLabels();
         addToCart(id, amount);
         break;
       }
+
+      case "open-product": {
+        hideToast();
+        closeCart();
+
+        /* Tautan di footer menuju Shop dulu, modalnya dibuka setelah route berganti */
+        if (trigger.tagName === "A" && trigger.getAttribute("href")) {
+          const target = new URL(trigger.href, window.location.href).hash;
+          if (target === window.location.hash) {
+            event.preventDefault();
+            openProductModal(id);
+            break;
+          }
+          pendingProductModal = id;
+          break;
+        }
+
+        event.preventDefault();
+        openProductModal(id);
+        break;
+      }
+
+      case "close-product":
+        closeProductModal();
+        break;
+
+      case "modal-qty-inc":
+        stepModalQty(1);
+        break;
+
+      case "modal-qty-dec":
+        stepModalQty(-1);
+        break;
+
+      case "modal-add":
+        addFromModal();
+        break;
+
+      case "filter-products":
+        setShopFilter(trigger.dataset.filter || "all");
+        break;
+
+      case "filter-gallery":
+        setGalleryFilter(trigger.dataset.filter || "all");
+        break;
+
+      case "open-lightbox":
+        openLightbox(trigger.dataset.id, trigger.closest("#homeGallery") ? "preview" : "page");
+        break;
+
+      case "close-lightbox":
+        closeLightbox();
+        break;
+
+      case "lightbox-prev":
+        stepLightbox(-1);
+        break;
+
+      case "lightbox-next":
+        stepLightbox(1);
+        break;
 
       case "item-inc":
         updateQuantity(id, 1);
@@ -2772,64 +3893,74 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
   }
 
   function handleKeydown(event) {
+    const lightboxOpen = dom.lightbox && dom.lightbox.classList.contains("is-open");
+
+    if (lightboxOpen) {
+      if (event.key === "Escape") { event.preventDefault(); closeLightbox(); return; }
+      if (event.key === "ArrowLeft") { event.preventDefault(); stepLightbox(-1); return; }
+      if (event.key === "ArrowRight") { event.preventDefault(); stepLightbox(1); return; }
+    }
+
     if (event.key !== "Escape") return;
 
-    if (dom.modal.classList.contains("is-open")) closeCheckout();
+    if (dom.productModal && dom.productModal.classList.contains("is-open")) closeProductModal();
+    else if (dom.modal.classList.contains("is-open")) closeCheckout();
     else if (dom.drawer.classList.contains("is-open")) closeCart();
     else closeMobileMenu();
   }
 
   /* ------------------------------------------------------------------------
-     13. NAVBAR: compact saat scroll + indikator bagian aktif
+     13. NAVBAR — compact saat scroll (status aktif nav diatur router)
      ------------------------------------------------------------------------ */
   function handleScroll() {
     dom.header.classList.toggle("is-compact", window.scrollY > 24);
   }
 
-  function initScrollSpy() {
-    const links = $$("#navLinks a");
-    if (links.length === 0 || !("IntersectionObserver" in window)) return;
-
-    const sections = links
-      .map((link) => document.querySelector(link.getAttribute("href")))
-      .filter(Boolean);
-
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-
-      if (!visible) return;
-
-      links.forEach((link) => {
-        link.classList.toggle("is-active", link.getAttribute("href") === `#${visible.target.id}`);
-      });
-    }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 });
-
-    sections.forEach((section) => observer.observe(section));
-  }
-
   /* ------------------------------------------------------------------------
-     14. REVEAL & IMAGE LOADING
+     20. REVEAL & IMAGE LOADING
      ------------------------------------------------------------------------ */
-  function initReveal() {
-    const items = $$(".reveal");
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let revealObserver = null;
+  let reduceMotion = false;
 
-    if (reduceMotion || !("IntersectionObserver" in window)) {
+  function observeReveals(root) {
+    const items = $$(".reveal", root || document);
+
+    if (reduceMotion || !revealObserver) {
       items.forEach((item) => item.classList.add("is-visible"));
       return;
     }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    items.forEach((item) => {
+      if (!item.classList.contains("is-visible")) revealObserver.observe(item);
+    });
+  }
 
-    items.forEach((item) => observer.observe(item));
+  function initReveal() {
+    reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+    }
+
+    observeReveals(document);
+  }
+
+  /* Elemen yang sudah ada di layar saat halaman dibuka, langsung ditampilkan */
+  function revealInView(root) {
+    if (!root) return;
+    $$(".reveal", root).forEach((item) => {
+      const rect = item.getBoundingClientRect();
+      if (rect.top < window.innerHeight * 0.98 && rect.bottom > 0) {
+        item.classList.add("is-visible");
+        if (revealObserver) revealObserver.unobserve(item);
+      }
+    });
   }
 
   /* Placeholder halus selama gambar dimuat */
@@ -2845,7 +3976,8 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
   }
 
   /* ------------------------------------------------------------------------
-     15. LOADER — 3 detik, bisa diklik atau ditekan tombol untuk dilewati
+     15. LOADER — singkat (0,4–0,8 detik) dan berhenti lebih awal
+     kalau font serta gambar hero sudah siap. Tidak menahan user.
      ------------------------------------------------------------------------ */
   function initLoader() {
     const loader = $("#loader");
@@ -2856,7 +3988,7 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
       document.body.classList.remove("is-loading");
       document.documentElement.classList.add("is-ready");
       if (loader) loader.classList.add("is-done");
-      window.setTimeout(() => { if (loader) loader.hidden = true; }, 460);
+      window.setTimeout(() => { if (loader) loader.hidden = true; }, 320);
     };
 
     if (!loader || reduceMotion) {
@@ -2864,31 +3996,400 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
       return;
     }
 
-    const duration = 2800;
+    const MIN = 420;
+    const MAX = 800;
+    const heroImage = $(".hero-media img");
     const started = performance.now();
+    let assetsReady = false;
+    let ended = false;
+
+    const end = () => {
+      if (ended) return;
+      ended = true;
+      if (count) count.textContent = "100%";
+      finish();
+    };
+
+    const readyCheck = () =>
+      (document.fonts ? document.fonts.status === "loaded" : true) &&
+      (!heroImage || (heroImage.complete && heroImage.naturalWidth > 0));
 
     const tick = (now) => {
-      const progress = Math.min(1, (now - started) / duration);
+      const elapsed = now - started;
+      if (!assetsReady && readyCheck()) assetsReady = true;
+
+      const target = assetsReady ? MIN : MAX;
+      const progress = Math.min(1, elapsed / target);
       if (count) count.textContent = Math.round(progress * 100) + "%";
-      if (progress < 1) requestAnimationFrame(tick);
+
+      if (progress >= 1) return end();
+      requestAnimationFrame(tick);
     };
 
     requestAnimationFrame(tick);
-    loader.addEventListener("click", finish);
-    document.addEventListener("keydown", finish, { once: true });
-    window.setTimeout(finish, 3000);
+    loader.addEventListener("click", end);
+    document.addEventListener("keydown", end, { once: true });
   }
 
   /* ------------------------------------------------------------------------
-     16. INIT
+     16. ROUTER — Home / Shop / Gallery / About / Cara Pesan
+     ------------------------------------------------------------------------ */
+  const ROUTES = {
+    home: {
+      path: "#/",
+      page: "page-home",
+      title: "ManggaKu — Mangga Segar Pilihan dari Kebun Mitra",
+      description: "ManggaKu menjual mangga segar pilihan: Harum Manis, Gedong Gincu, dan Manalagi. Dipilih saat matang pohon, dikirim pada hari yang sama."
+    },
+    shop: {
+      path: "#/shop",
+      page: "page-shop",
+      title: "ManggaKu — Shop Mangga Segar",
+      description: "Katalog mangga ManggaKu: harga per kilogram, pilih jumlah, lalu checkout lewat WhatsApp."
+    },
+    gallery: {
+      path: "#/gallery",
+      page: "page-gallery",
+      title: "ManggaKu — Gallery",
+      description: "Galeri visual ManggaKu: kebun mitra, proses sortir, kemasan, dan mangga siap disantap."
+    },
+    about: {
+      path: "#/about",
+      page: "page-about",
+      title: "ManggaKu — About",
+      description: "Tentang ManggaKu: bagaimana kami memilih, memeriksa, dan mengirim mangga dari kebun mitra."
+    },
+    "how-to-order": {
+      path: "#/how-to-order",
+      page: "page-how",
+      title: "ManggaKu — Cara Pesan",
+      description: "Lima langkah memesan mangga di ManggaKu, dari memilih produk sampai konfirmasi lewat WhatsApp."
+    }
+  };
+
+  let currentRoute = null;
+  let pendingProductModal = null;
+
+  /* null = bukan route (mis. #main dari skip link) → halaman tidak diganti */
+  function routeFromHash() {
+    const hash = window.location.hash || "#/";
+    const clean = hash.split("?")[0];
+    if (clean === "#" || clean === "#/") return "home";
+    return Object.keys(ROUTES).find((key) => ROUTES[key].path === clean) || null;
+  }
+
+  function setMeta(name, value) {
+    const tag = document.querySelector(`meta[name="${name}"]`);
+    if (tag) tag.setAttribute("content", value);
+  }
+
+  function setOgMeta(property, value) {
+    const tag = document.querySelector(`meta[property="${property}"]`);
+    if (tag) tag.setAttribute("content", value);
+  }
+
+  function applyRoute(route) {
+    const name = ROUTES[route] ? route : "home";
+    const config = ROUTES[name];
+
+    Object.keys(ROUTES).forEach((key) => {
+      const page = document.getElementById(ROUTES[key].page);
+      if (page) page.hidden = key !== name;
+    });
+
+    $$("[data-route-link]").forEach((link) => {
+      const active = link.dataset.routeLink === name;
+      link.classList.toggle("is-active", active);
+      if (active) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+
+    document.title = config.title;
+    setMeta("description", config.description);
+    setOgMeta("og:title", config.title);
+    setOgMeta("og:description", config.description);
+
+    /* Overlay tidak ikut pindah halaman */
+    closeCart();
+    closeCheckout();
+    closeProductModal();
+    closeLightbox();
+    closeMobileMenu();
+
+    const changed = currentRoute !== name;
+    currentRoute = name;
+    if (!changed) return;
+
+    window.scrollTo(0, 0);
+
+    const page = document.getElementById(config.page);
+    revealInView(page);
+
+    const heading = page ? page.querySelector("h1") : null;
+    if (heading) {
+      heading.setAttribute("tabindex", "-1");
+      heading.focus({ preventScroll: true });
+    }
+
+    /* Permintaan detail produk dari footer: buka setelah halaman siap */
+    if (pendingProductModal) {
+      const next = pendingProductModal;
+      pendingProductModal = null;
+      openProductModal(next);
+    }
+  }
+
+  /* Klik latar & geser untuk lightbox */
+  function initLightbox() {
+    if (!dom.lightbox) return;
+
+    dom.lightbox.addEventListener("click", (event) => {
+      if (event.target.closest("[data-action]")) return;
+      if (event.target.tagName === "IMG") return;
+      closeLightbox();
+    });
+
+    let touchStartX = null;
+
+    dom.lightbox.addEventListener("touchstart", (event) => {
+      touchStartX = event.touches[0] ? event.touches[0].clientX : null;
+    }, { passive: true });
+
+    dom.lightbox.addEventListener("touchend", (event) => {
+      if (touchStartX === null) return;
+      const endX = event.changedTouches[0] ? event.changedTouches[0].clientX : touchStartX;
+      const delta = endX - touchStartX;
+      touchStartX = null;
+      if (Math.abs(delta) < 48) return;
+      stepLightbox(delta < 0 ? 1 : -1);
+    }, { passive: true });
+  }
+
+  function handleRouteChange() {
+    const route = routeFromHash();
+    if (route === null) return;
+    applyRoute(route);
+  }
+
+  function initRouter() {
+    window.addEventListener("hashchange", handleRouteChange);
+    handleRouteChange();
+  }
+
+  /* ------------------------------------------------------------------------
+     17. GALERI + LIGHTBOX
+     ------------------------------------------------------------------------ */
+  const GALLERY_PREVIEW_COUNT = 6;
+
+  const GALLERY_LABELS = {
+    product: "Product",
+    orchard: "Orchard",
+    process: "Process",
+    packaging: "Packaging",
+    lifestyle: "Lifestyle"
+  };
+
+  let galleryFilter = "all";
+  let lightboxList = [];
+  let lightboxIndex = 0;
+  let lightboxTrigger = null;
+
+  function galleryItemsFor(filter) {
+    if (filter === "all") return galleryItems;
+    return galleryItems.filter((item) => item.category === filter);
+  }
+
+  /* Ritme tinggi kolom masonry: pola yang berulang, bukan acak */
+  const GALLERY_RHYTHM = ["3 / 4", "1 / 1", "4 / 5", "1 / 1", "3 / 4", "4 / 3"];
+
+  function galleryItemMarkup(item, index = 0) {
+    const ratio = GALLERY_RHYTHM[index % GALLERY_RHYTHM.length];
+
+    return `
+      <figure class="gallery-item reveal" style="--g-ratio: ${ratio}" data-index="${index}">
+        <button class="gallery-item-btn" type="button" data-action="open-lightbox" data-id="${item.id}"
+                aria-label="Buka foto: ${item.caption}">
+          <img class="img-stock" src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async"
+               onerror="window.manggaImgFallback && window.manggaImgFallback(this)">
+        </button>
+        <figcaption>
+          <span class="gallery-cat">${GALLERY_LABELS[item.category] || item.category}</span>
+          <strong>${item.caption}</strong>
+        </figcaption>
+      </figure>
+    `;
+  }
+
+  function renderGalleryPreview() {
+    if (!dom.homeGallery) return;
+    const preview = galleryItems.filter((item) => item.preview).slice(0, GALLERY_PREVIEW_COUNT);
+    dom.homeGallery.innerHTML = preview.map((item, index) => galleryItemMarkup(item, index)).join("");
+  }
+
+  function renderGallery() {
+    if (!dom.galleryGrid) return;
+    const list = galleryItemsFor(galleryFilter);
+    dom.galleryGrid.innerHTML = list.map((item, index) => galleryItemMarkup(item, index)).join("");
+    if (dom.galleryCount) {
+      dom.galleryCount.textContent = `${list.length} foto`;
+    }
+    observeReveals(dom.galleryGrid);
+    initImageLoading();
+  }
+
+  function setGalleryFilter(next) {
+    galleryFilter = next;
+    $$('[data-action="filter-gallery"]').forEach((chip) => {
+      chip.setAttribute("aria-pressed", chip.dataset.filter === next ? "true" : "false");
+    });
+    renderGallery();
+  }
+
+  function renderLightbox() {
+    const item = lightboxList[lightboxIndex];
+    if (!item || !dom.lightboxImage) return;
+
+    dom.lightboxImage.src = item.src;
+    dom.lightboxImage.alt = item.alt;
+    dom.lightboxImage.classList.remove("is-in");
+    void dom.lightboxImage.offsetWidth; /* memulai ulang animasi masuk */
+    dom.lightboxImage.classList.add("is-in");
+
+    if (dom.lightboxCaption) dom.lightboxCaption.textContent = item.caption;
+    if (dom.lightboxCat) dom.lightboxCat.textContent = GALLERY_LABELS[item.category] || item.category;
+    if (dom.lightboxCount) dom.lightboxCount.textContent = `${lightboxIndex + 1} / ${lightboxList.length}`;
+  }
+
+  function openLightbox(id, source) {
+    const list = source === "preview"
+      ? galleryItems.filter((item) => item.preview).slice(0, GALLERY_PREVIEW_COUNT)
+      : galleryItemsFor(galleryFilter);
+
+    const index = list.findIndex((item) => item.id === id);
+    if (index < 0) return;
+
+    closeCart();
+    lightboxList = list;
+    lightboxIndex = index;
+    lightboxTrigger = document.activeElement;
+
+    renderLightbox();
+    dom.lightbox.classList.add("is-open");
+    dom.lightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("is-locked");
+
+    /* Fokus menunggu transisi visibility selesai, sama seperti modal checkout */
+    const closeButton = dom.lightbox.querySelector('[data-action="close-lightbox"]');
+    if (closeButton) window.setTimeout(() => closeButton.focus({ preventScroll: true }), 240);
+  }
+
+  function closeLightbox() {
+    if (!dom.lightbox || !dom.lightbox.classList.contains("is-open")) return;
+
+    dom.lightbox.classList.remove("is-open");
+    dom.lightbox.setAttribute("aria-hidden", "true");
+    releaseBodyLock();
+
+    if (lightboxTrigger && document.contains(lightboxTrigger)) {
+      lightboxTrigger.focus({ preventScroll: true });
+    }
+    lightboxTrigger = null;
+  }
+
+  function stepLightbox(step) {
+    if (lightboxList.length === 0) return;
+    lightboxIndex = (lightboxIndex + step + lightboxList.length) % lightboxList.length;
+    renderLightbox();
+  }
+
+  /* ------------------------------------------------------------------------
+     18. PRODUCT DETAIL MODAL
+     ------------------------------------------------------------------------ */
+  let modalProductId = null;
+  let modalQty = 1;
+  let productModalTrigger = null;
+
+  function openProductModal(id) {
+    const product = getProduct(id);
+    if (!product || !dom.productModal) return;
+
+    modalProductId = id;
+    modalQty = 1;
+    productModalTrigger = document.activeElement;
+
+    dom.productModalQty.textContent = "1";
+    dom.productModalCat.textContent = product.category;
+    dom.productModalTitle.textContent = product.name;
+    dom.productModalDesc.textContent = product.description;
+    dom.productModalPrice.textContent = formatRupiah(product.price);
+    dom.productModalUnit.textContent = `/ ${product.unit}`;
+    dom.productModalTaste.textContent = product.taste;
+    dom.productModalOrigin.textContent = product.origin || "Kebun mitra";
+    dom.productModalSatuan.textContent = `1 ${product.unit}, minimum 1 ${product.unit}`;
+    dom.productModalImage.src = product.image;
+    dom.productModalImage.alt = product.alt;
+
+    dom.productModal.classList.add("is-open");
+    dom.productModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("is-locked");
+
+    const focusTarget = dom.productModal.querySelector('[data-action="modal-add"]');
+    if (focusTarget) window.setTimeout(() => focusTarget.focus({ preventScroll: true }), 240);
+  }
+
+  function closeProductModal() {
+    if (!dom.productModal || !dom.productModal.classList.contains("is-open")) return;
+
+    dom.productModal.classList.remove("is-open");
+    dom.productModal.setAttribute("aria-hidden", "true");
+    releaseBodyLock();
+
+    if (productModalTrigger && document.contains(productModalTrigger)) {
+      productModalTrigger.focus({ preventScroll: true });
+    }
+    productModalTrigger = null;
+    modalProductId = null;
+  }
+
+  function stepModalQty(step) {
+    if (!modalProductId) return;
+    modalQty = Math.min(99, Math.max(1, modalQty + step));
+    dom.productModalQty.textContent = String(modalQty);
+  }
+
+  function addFromModal() {
+    if (!modalProductId) return;
+    const id = modalProductId;
+    const amount = modalQty;
+    closeProductModal();
+    addToCart(id, amount);
+  }
+
+  /* Kunci scroll dipakai bersama oleh drawer, modal, dan lightbox */
+  function releaseBodyLock() {
+    const anyOpen =
+      document.body.classList.contains("is-locked") &&
+      (dom.drawer.classList.contains("is-open") ||
+        dom.modal.classList.contains("is-open") ||
+        (dom.productModal && dom.productModal.classList.contains("is-open")) ||
+        (dom.lightbox && dom.lightbox.classList.contains("is-open")));
+    if (!anyOpen) document.body.classList.remove("is-locked");
+  }
+
+  /* ------------------------------------------------------------------------
+     19. INIT
      ------------------------------------------------------------------------ */
   function init() {
     initLoader();
     renderProducts();
+    renderShop();
+    renderGalleryPreview();
+    renderGallery();
     renderCart();
-    initImageLoading();
+
     initReveal();
-    initScrollSpy();
+    initImageLoading();
+    initRouter();
 
     document.addEventListener("click", handleClick);
     document.addEventListener("keydown", handleKeydown);
@@ -2898,6 +4399,18 @@ html.is-ready .hero-visual { animation-delay: 90ms; }
     dom.modal.addEventListener("click", (event) => {
       if (event.target === dom.modal) closeCheckout();
     });
+
+    if (dom.productModal) {
+      dom.productModal.addEventListener("click", (event) => {
+        if (event.target === dom.productModal) closeProductModal();
+      });
+    }
+
+    if (dom.shopSort) {
+      dom.shopSort.addEventListener("change", () => setShopSort(dom.shopSort.value));
+    }
+
+    initLightbox();
 
     dom.form.addEventListener("submit", handleCheckoutSubmit);
 
